@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+
+<head th:replace="fragments :: head"></head>
+
+<body>
+
+<div id="home" class="container-fluid">
+
+    <form id="regForm" method="post" name="myForm">
+        <h1><span style="color:red;">Gift </span><span style="color:green;">Generator</span> </h1>
+        <!-- One "tab" for each step in the form: -->
+
+    <!-- Tab for Welcome Message -->
+        <div class="tab">
+            <div th:if="${listings}">
+                <h3>Check out your results below!</h3>
+                <hr />
+                <p>Don't like your results? Click next and try generating some more gifts!</p>
+            </div>
+            <div th:unless="${listings}">
+                <h3>Welcome!</h3>
+                <hr />
+                <p>Help us answer a few questions and we'll give you some great gift ideas!</p>
+                <p>Ready to get started? Click on "Next" for your first question.</p>
+            </div>
+        </div>
+
+    <!-- Tab for hobbies -->
+        <div class="tab" id="hobby">
+            <h3>What is this person interested in?</h3>
+            <hr/>
+            <input type="radio" name="hobby" value="cooking" id="cooking" oninput="this.className = ''"/>
+            <label th:for="cooking">Cooking</label>
+            <input type="radio" name="hobby" value="HomeGarden" id="garden" oninput="this.className = ''"/>
+            <label th:for="garden">Home and Gardening</label>
+            <input type="radio" name="hobby" value="Books" id="books" oninput="this.className = ''" />
+            <label th:for="books">Books</label>
+            <input type="radio" name="hobby" value="Beauty" id="beauty" oninput="this.className = ''"/>
+            <label th:for="beauty">Beauty</label>
+            <input type="radio" name="hobby" value="Fashion" id="fashion" oninput="this.className = ''"/>
+            <label th:for="fashion">Fashion</label>
+            <input type="radio" name="hobby" value="VideoGames" id="games" oninput="this.className = ''"/>
+            <label th:for="games">Games</label>
+            <div id ="errorhobby" class="error"></div>
+        </div>
+
+        <!-- Tab for gender -->
+        <div class="tab" id="gender">
+            <h3>Who is the gift for?</h3>
+            <hr/>
+            <input type="radio" name="gender" value="girl" id="girl" oninput="this.className = ''" />
+            <label th:for="girl">Girl</label>
+            <input type="radio" name="gender" value="boy" id="boy" oninput="this.className = ''"/>
+            <label th:for="boy">Boy</label>
+            <input type="radio" name="gender" value="women" id="woman" oninput="this.className = ''"/>
+            <label th:for="woman">Woman</label>
+            <input type="radio" name="gender" value="men" id="man" oninput="this.className = ''"/>
+            <label th:for="man">Man</label>
+            <div id ="errorgender" class="error"></div>
+        </div>
+
+        <!-- Tab for price -->
+        <div class="tab" id="price">
+            <h3>What is your maximum price ?</h3>
+            <hr/>
+            <input type="radio" name="price" value="2500" id="2500" oninput="this.className = ''" />
+            <label th:for="2500">$25</label>
+            <input type="radio" name="price" value="5000" id="5000" oninput="this.className = ''"  />
+            <label th:for="5000">$50</label>
+            <input type="radio" name="price" value="10000" id="10000" oninput="this.className = ''"  />
+            <label th:for="10000">$100</label>
+            <input type="radio" name="price" value="20000" id="20000" oninput="this.className = ''"  />
+            <label th:for="20000">$200</label>
+            <div id ="errorprice" class="error"></div>
+        </div>
+
+<!-- Circles which indicates the steps of the form: -->
+        <div style="text-align:center;margin-top:2em;">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+        </div>
+
+        <!-- Direction buttons -->
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<!-- Second Container (Grid) -->
+<div th:if="${listings}" id="cardlayout" class="container-fluid">
+    <a th:each="listing : ${listings}" th:href="@{${listing.detail}}">
+        <article>
+            <figure>
+                <img th:src="@{${listing.imageURL}}" alt="Image"/>
+            </figure>
+            <p th:text="${listing.title}">Lorem ipsum</p>
+        </article>
+    </a>
+</div>
+
+<script src="js/script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+
+</body>
+</html>
